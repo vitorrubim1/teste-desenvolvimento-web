@@ -1,7 +1,9 @@
 import React from "react";
-import { ThemeProvider, createMuiTheme, Box } from "@material-ui/core";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 
 import ListCard from "./components/ListCard";
+import Pokemon from "./components/Pokemon";
 
 function App() {
   const [darkTheme, setDarkTheme] = React.useState(false);
@@ -11,10 +13,10 @@ function App() {
     palette: {
       type: darkTheme ? "dark" : "light",
       primary: {
-        main: "#f44336",
+        main: "#3362ae",
       },
       secondary: {
-        main: darkTheme ? "#3EA6FF" : "#065fd4",
+        main: "#ff1a1a",
       },
       background: {
         default: darkTheme ? "#232323" : "#FFF",
@@ -24,9 +26,20 @@ function App() {
     },
   });
   return (
-    <ThemeProvider theme={theme}>
-      <ListCard darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Switch>
+          <Route
+            exact
+            component={ListCard}
+            darkTheme={darkTheme}
+            setDarkTheme={setDarkTheme}
+            path="/"
+          />
+          <Route exact path="/pokemon/:id" component={Pokemon} />
+        </Switch>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
