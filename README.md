@@ -15,7 +15,15 @@ O projeto é um Teste avaliativo onde consumo a API do **PokeAPI** com objetivo 
 
 ---
 
+## Site no Ar 
+
+ https://elastic-babbage-7b5094.netlify.app/
+
+---
+
+
 ## 📁 Como baixar o projeto
+
 
 ```bash
 
