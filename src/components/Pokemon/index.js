@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -20,37 +20,26 @@ const useStyles = makeStyles((theme) => ({
     height: "80vh",
     width: "85vw",
     margin: "10vh auto",
-    border: "1px solid #000",
+    border: "1px solid #262626",
+    borderRadius: "16px",
   },
   title: {
     textTransform: "Capitalize",
     fontWeight: "bold",
   },
-  information: {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "100px",
-  },
-  dataBar: {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "600px",
-    background: "#ccc",
-  },
-  ability: {
-    width: "170px",
-  },
-  quantity: {
-    width: "430px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   header: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: "20px",
+    marginBottom: "30px",
+  },
+  back: {
+    width: "100px",
+    font: "1.5em Roboto",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "black"
   },
 }));
 
@@ -58,8 +47,7 @@ const BorderLinearProgress = withStyles((theme) => ({
   root: {
     height: 10,
     borderRadius: 5,
-    width: "100%",
-    marginLeft: "20px",
+    width: "70%",
   },
   colorPrimary: {
     backgroundColor:
@@ -67,7 +55,7 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
   bar: {
     borderRadius: 5,
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#1552e2",
   },
 }))(LinearProgress);
 
@@ -75,8 +63,8 @@ export default function Pokemon() {
   const classes = useStyles();
 
   const [namePokemon, setNamePokemon] = React.useState("");
-  const [weight, setWeight] = React.useState();
-  const [height, setHeight] = React.useState();
+  const [weight, setWeight] = React.useState("");
+  const [height, setHeight] = React.useState("");
   //stats
   const [hp, setHp] = React.useState("");
   const [attack, setAttack] = React.useState("");
@@ -109,9 +97,8 @@ export default function Pokemon() {
             .join(" ");
         })
         .join(", ");
-      setAbilities(abilities);
 
-      //images
+      setAbilities(abilities);
       setImage(response.data.sprites.other.dream_world.front_default);
 
       //hp, attack, defense, special-attack, special-defense, speed of pokemon
@@ -142,17 +129,23 @@ export default function Pokemon() {
       });
     }
     getInformationPokemon();
-  }, []);
+  }, [id]);
 
   return (
     <React.Fragment>
+      <Box>
+        <Link to="/" className={classes.back}>
+          {" "}
+          Voltar{" "}
+        </Link>
+      </Box>
       <Box className={classes.content}>
         <Box ml={10}>
           <Box className={classes.header}>
             <Typography className={classes.title} component="h4" variant="h4">
               {namePokemon}
             </Typography>
-            <Chip label={abilities} variant="outlined" color="primary" />
+            <Chip label={abilities} variant="outlined" color="secondary" />
             <Typography className={classes.title} component="h4" variant="h4">
               #{id}
             </Typography>

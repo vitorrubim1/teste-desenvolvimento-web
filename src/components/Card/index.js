@@ -6,19 +6,17 @@ import {
   Grid,
   makeStyles,
   Typography,
-  Box,
   Card as CardOfPokemon,
   CardMedia,
   CardActions,
   CardContent,
   CardActionArea,
-  CircularProgress,
 } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    border: "1px solid #d9d9d9",
   },
   image: {
     width: "15em",
@@ -136,7 +134,7 @@ function Card({ name, url }) {
         {
           (idPokemon,
           name,
-          imagePokemon ? (
+          imagePokemon && (
             <CardOfPokemon
               className={classes.root}
               style={{
@@ -167,14 +165,6 @@ function Card({ name, url }) {
                 </Link>
               </CardActions>
             </CardOfPokemon>
-          ) : (
-            <Box pt={0.5}>
-              <Skeleton mb={2} />
-              <Skeleton variant="rect" width="100%">
-                <div style={{ paddingTop: "57%" }} />
-              </Skeleton>
-              <Skeleton width="60%" />
-            </Box>
           ))
         }
       </Grid>

@@ -28,19 +28,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto",
     alignItems: "center",
   },
-  iconButton: {
-    padding: 10,
-  },
-  searchInput: {
-    width: "250px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   button: {
-    width: "100px",
     marginLeft: "10px",
-    padding: "10px",
+    padding: "15px",
   },
 }));
 
@@ -107,19 +97,19 @@ function ListCard({ darkTheme, setDarkTheme }) {
             value={searchPokemon}
             onChange={(event) => setSearchPokemon(event.target.value)}
           />
-          <IconButton type="submit" className={classes.iconButton}>
+          <IconButton type="submit" className={classes.button}>
             <SearchIcon />
           </IconButton>
         </form>
       </Box>
-      <Box textAlign="end">
+      <Box textAlign="end" mr={10}>
         <Switch
           value={darkTheme}
           onChange={() => setDarkTheme(!darkTheme)}
           color="primary"
         />
       </Box>
-      <Box display="flex" justifyContent="center" alignItems="center" mr={5}>
+      <Box display="flex" justifyContent="center" alignItems="center" mr={5} mb={3}>
         {previousUrl && (
           <Button
             variant="contained"
@@ -170,7 +160,7 @@ function ListCard({ darkTheme, setDarkTheme }) {
           </Grid>
         </React.Fragment>
       ) : (
-        <Box>
+        <Box display="flex" alignItems="center" justifyContent="center">
           <CircularProgress />
         </Box>
       )}
