@@ -1,7 +1,5 @@
 Ajustar o Loading, 
 Arrumar o Card, 
-Fazer Paginação, 
-Hover no card,
-Arrumar link dos cards, 
 
-tentar fazer a imagem do pokemon ficar mudando, url back-default
+dark theme
+limpar o codigo
