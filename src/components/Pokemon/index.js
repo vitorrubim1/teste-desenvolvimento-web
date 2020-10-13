@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginBottom: "30px",
     color: theme.palette.primary,
   },
@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "black",
+    color: theme.palette.secondary.main,
+    padding: "30px",
   },
   body: {
     background: theme.palette.background.default,

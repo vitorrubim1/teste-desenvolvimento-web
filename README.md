@@ -35,9 +35,13 @@ O projeto é um Teste avaliativo onde consumo a API do **PokeAPI** com objetivo 
 
   # Instalar as dependências 📥
   $ yarn install
+  
+  # Mudar de branch 
+  $ git checkout vitorRubim
 
   # Iniciar o Projeto 🔥🔥
   $ yarn start
+
 ```
 
 <p align="center"> Desenvolvido com ❤️ por Vitor Rubim </p>

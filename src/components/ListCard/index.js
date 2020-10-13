@@ -11,8 +11,9 @@ import {
   IconButton,
   Button,
   Icon,
+  Typography,
 } from "@material-ui/core";
-
+import Alert from "@material-ui/lab/Alert";
 import SearchIcon from "@material-ui/icons/Search";
 import ChevronRightSharpIcon from "@material-ui/icons/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@material-ui/icons/ChevronLeftSharp";
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   body: {
     background: theme.palette.background.dark,
     height: "100%",
-    width: "100%"
+    width: "100%",
   },
 }));
 
@@ -45,6 +46,7 @@ function ListCard({ darkTheme, setDarkTheme }) {
   const [wantedPokemon, setWantedPokemon] = React.useState("");
   const [previousUrl, setPreviousUrl] = React.useState("");
   const [nextUrl, setNextUrl] = React.useState("");
+  const [error, setError] = React.useState(false);
   const initialUrl = "https://pokeapi.co/api/v2/pokemon/";
 
   React.useEffect(() => {
@@ -78,10 +80,14 @@ function ListCard({ darkTheme, setDarkTheme }) {
   //procurar por um pokemon
   async function handleSearchPokemon(event) {
     event.preventDefault();
-    const response = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${searchPokemon}`
-    );
-    setWantedPokemon(response.data);
+    try {
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${searchPokemon}`
+      );
+      setWantedPokemon(response.data);
+    } catch (error) {
+      setError(true);
+    }
   }
 
   return (
@@ -90,7 +96,6 @@ function ListCard({ darkTheme, setDarkTheme }) {
         <Box display="flex" justifyContent="center" mb={2}>
           <img src={logo} alt="" width={400} />
         </Box>
-
         <Box display="flex" justifyContent="center" mb={2}>
           <form onSubmit={handleSearchPokemon}>
             <TextField
@@ -102,9 +107,19 @@ function ListCard({ darkTheme, setDarkTheme }) {
                 setSearchPokemon(event.target.value.toLowerCase())
               }
             />
-            <IconButton type="submit" className={classes.button}>
-              <SearchIcon />
-            </IconButton>
+            {searchPokemon ? (
+              <IconButton
+                type="submit"
+                color="primary"
+                className={classes.button}
+              >
+                <SearchIcon />
+              </IconButton>
+            ) : (
+              <IconButton type="submit" disabled className={classes.button}>
+                <SearchIcon />
+              </IconButton>
+            )}
           </form>
         </Box>
         <Box textAlign="end" mr={10}>
@@ -121,7 +136,7 @@ function ListCard({ darkTheme, setDarkTheme }) {
           mr={5}
           mb={3}
         >
-          {previousUrl && (
+          {pokemons && previousUrl && (
             <Button
               variant="contained"
               onClick={previous}
@@ -160,6 +175,20 @@ function ListCard({ darkTheme, setDarkTheme }) {
                 url={wantedPokemon.species.url}
                 key={wantedPokemon.name}
               />
+            </Box>
+          </React.Fragment>
+        ) : error ? (
+          <React.Fragment>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              mr={3}
+            >
+              <Alert variant="filled" severity="error">
+                Não foi possível localizar este pokemon! Tente novamente e
+                verifique se digitou corretamente
+              </Alert>
             </Box>
           </React.Fragment>
         ) : pokemons ? (

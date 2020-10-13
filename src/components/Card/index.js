@@ -11,6 +11,8 @@ import {
   CardActions,
   CardContent,
   CardActionArea,
+  CircularProgress,
+  Box,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -142,12 +144,20 @@ function Card({ name, url }) {
               }}
             >
               <CardActionArea>
-                <CardMedia
-                  component="img"
-                  className={classes.image}
-                  alt={name}
-                  image={imagePokemon}
-                />
+                {imagePokemon ? (
+                  <CardMedia
+                    component="img"
+                    className={classes.image}
+                    alt={name}
+                    image={imagePokemon}
+                  />
+                ) : (
+                  <React.Fragment>
+                    <Box display="flex" justifyContent="center" mt={3}>
+                      <CircularProgress color="primary" />
+                    </Box>
+                  </React.Fragment>
+                )}
                 <CardContent>
                   <Typography
                     gutterBottom
