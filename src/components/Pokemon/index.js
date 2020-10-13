@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "80vh",
+    height: "100vh",
     width: "85vw",
-    margin: "10vh auto",
-    border: "1px solid #262626",
+    margin: "0 auto",
+    border: "1px solid #ccc",
     borderRadius: "16px",
   },
   title: {
@@ -32,14 +32,22 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: "30px",
+    color: theme.palette.primary,
   },
   back: {
     width: "100px",
-    font: "1.5em Roboto",
+    textDecoration: "none",
+    fontSize: "1.5em ",
+    fontFamily: "Roboto, sans-serif",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "black"
+    color: "black",
+  },
+  body: {
+    background: theme.palette.background.default,
+    height: "100%",
+    width: "100%",
   },
 }));
 
@@ -50,8 +58,7 @@ const BorderLinearProgress = withStyles((theme) => ({
     width: "70%",
   },
   colorPrimary: {
-    backgroundColor:
-      theme.palette.grey[theme.palette.type === "light" ? 200 : 700],
+    color: "rgba(0, 0, 0, 0.54)",
   },
   bar: {
     borderRadius: 5,
@@ -133,94 +140,105 @@ export default function Pokemon() {
 
   return (
     <React.Fragment>
-      <Box>
-        <Link to="/" className={classes.back}>
-          {" "}
-          Voltar{" "}
-        </Link>
-      </Box>
-      <Box className={classes.content}>
-        <Box ml={10}>
-          <Box className={classes.header}>
-            <Typography className={classes.title} component="h4" variant="h4">
-              {namePokemon}
-            </Typography>
-            <Chip label={abilities} variant="outlined" color="secondary" />
-            <Typography className={classes.title} component="h4" variant="h4">
-              #{id}
-            </Typography>
+      <section className={classes.body}>
+        <Box>
+          <Link to="/" className={classes.back}>
+            Voltar
+          </Link>
+        </Box>
+        <Box className={classes.content}>
+          <Box ml={10}>
+            <Box className={classes.header}>
+              <Typography
+                className={classes.title}
+                color="secondary"
+                component="h4"
+                variant="h4"
+              >
+                {namePokemon}
+              </Typography>
+              <Chip label={abilities} variant="outlined" color="secondary" />
+              <Typography
+                className={classes.title}
+                color="secondary"
+                component="h4"
+                variant="h4"
+              >
+                # {id}
+              </Typography>
+            </Box>
+
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <Typography color="textSecondary" className={classes.title}>
+                  Peso:
+                </Typography>
+                <Typography color="secondary">{weight}kg</Typography>
+              </Grid>
+
+              <Grid item xs={6}>
+                <Typography color="textSecondary" className={classes.title}>
+                  Altura:
+                </Typography>
+                <Typography color="secondary">{height} metros </Typography>
+              </Grid>
+            </Grid>
+
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Typography color="textSecondary" className={classes.title}>
+                  HP: {hp}
+                </Typography>
+                <BorderLinearProgress variant="determinate" value={hp} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography color="textSecondary" className={classes.title}>
+                  Ataque: {attack}
+                </Typography>
+                <BorderLinearProgress variant="determinate" value={attack} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography color="textSecondary" className={classes.title}>
+                  Defesa: {defense}
+                </Typography>
+                <BorderLinearProgress variant="determinate" value={defense} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography color="textSecondary" className={classes.title}>
+                  Ataque especial: {specialAttack}
+                </Typography>
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={specialAttack}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography color="textSecondary" className={classes.title}>
+                  Defesa especial: {specialDefense}
+                </Typography>
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={specialDefense}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography color="textSecondary" className={classes.title}>
+                  Velocidade: {speed}
+                </Typography>
+                <BorderLinearProgress variant="determinate" value={speed} />
+              </Grid>
+            </Grid>
           </Box>
-
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <Typography color="textSecondary" className={classes.title}>
-                Peso:
-              </Typography>
-              <Typography>{weight}kg</Typography>
-            </Grid>
-
-            <Grid item xs={6}>
-              <Typography color="textSecondary" className={classes.title}>
-                Altura:
-              </Typography>
-              <Typography>{height} metros </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography color="textSecondary" className={classes.title}>
-                HP: {hp}
-              </Typography>
-              <BorderLinearProgress variant="determinate" value={hp} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography color="textSecondary" className={classes.title}>
-                Ataque: {attack}
-              </Typography>
-              <BorderLinearProgress variant="determinate" value={attack} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography color="textSecondary" className={classes.title}>
-                Defesa: {defense}
-              </Typography>
-              <BorderLinearProgress variant="determinate" value={defense} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography color="textSecondary" className={classes.title}>
-                Ataque especial: {specialAttack}
-              </Typography>
-              <BorderLinearProgress
-                variant="determinate"
-                value={specialAttack}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography color="textSecondary" className={classes.title}>
-                Defesa especial: {specialDefense}
-              </Typography>
-              <BorderLinearProgress
-                variant="determinate"
-                value={specialDefense}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography color="textSecondary" className={classes.title}>
-                Velocidade: {speed}
-              </Typography>
-              <BorderLinearProgress variant="determinate" value={speed} />
-            </Grid>
-          </Grid>
+          <Box mr={10}>
+            <img src={image} alt={namePokemon} />
+          </Box>
         </Box>
-        <Box mr={10}>
-          <img src={image} alt={namePokemon} />
-        </Box>
-      </Box>
+      </section>
     </React.Fragment>
   );
 }

@@ -5,7 +5,6 @@ import {
   Box,
   CircularProgress,
   TextField,
-  useTheme,
   makeStyles,
   Grid,
   Switch,
@@ -24,7 +23,6 @@ import logo from "../../img/logo";
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "90%",
-    height: "80vh",
     margin: "0 auto",
     alignItems: "center",
   },
@@ -32,11 +30,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10px",
     padding: "15px",
   },
+  body: {
+    background: theme.palette.background.dark,
+    height: "100%",
+    width: "100%"
+  },
 }));
 
 function ListCard({ darkTheme, setDarkTheme }) {
   const classes = useStyles();
-  const theme = useTheme();
 
   const [pokemons, setPokemons] = React.useState();
   const [searchPokemon, setSearchPokemon] = React.useState("");
@@ -84,86 +86,96 @@ function ListCard({ darkTheme, setDarkTheme }) {
 
   return (
     <React.Fragment>
-      <Box display="flex" justifyContent="center" mb={2}>
-        <img src={logo} alt="" width={400} />
-      </Box>
-
-      <Box display="flex" justifyContent="center" mb={2}>
-        <form onSubmit={handleSearchPokemon}>
-          <TextField
-            id="outlined-basic"
-            label="Look for a Pokemon =)"
-            variant="outlined"
-            value={searchPokemon}
-            onChange={(event) => setSearchPokemon(event.target.value)}
-          />
-          <IconButton type="submit" className={classes.button}>
-            <SearchIcon />
-          </IconButton>
-        </form>
-      </Box>
-      <Box textAlign="end" mr={10}>
-        <Switch
-          value={darkTheme}
-          onChange={() => setDarkTheme(!darkTheme)}
-          color="primary"
-        />
-      </Box>
-      <Box display="flex" justifyContent="center" alignItems="center" mr={5} mb={3}>
-        {previousUrl && (
-          <Button
-            variant="contained"
-            onClick={previous}
-            color="primary"
-            className={classes.button}
-            startIcon={
-              <Icon>
-                <ChevronLeftSharpIcon />
-              </Icon>
-            }
-          >
-            Voltar
-          </Button>
-        )}
-        {nextUrl && (
-          <Button
-            variant="contained"
-            onClick={next}
-            color="primary"
-            className={classes.button}
-            endIcon={
-              <Icon>
-                <ChevronRightSharpIcon />
-              </Icon>
-            }
-          >
-            Próximo
-          </Button>
-        )}
-      </Box>
-      {wantedPokemon ? (
-        <React.Fragment>
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Card
-              name={wantedPokemon.name}
-              url={wantedPokemon.species.url}
-              key={wantedPokemon.name}
-            />
-          </Box>
-        </React.Fragment>
-      ) : pokemons ? (
-        <React.Fragment>
-          <Grid container spacing={3} className={classes.container}>
-            {pokemons.map((item) => (
-              <Card name={item.name} url={item.url} key={item.name} />
-            ))}
-          </Grid>
-        </React.Fragment>
-      ) : (
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <CircularProgress />
+      <section className={classes.body}>
+        <Box display="flex" justifyContent="center" mb={2}>
+          <img src={logo} alt="" width={400} />
         </Box>
-      )}
+
+        <Box display="flex" justifyContent="center" mb={2}>
+          <form onSubmit={handleSearchPokemon}>
+            <TextField
+              id="outlined-basic"
+              label="Look for a Pokemon =)"
+              variant="outlined"
+              value={searchPokemon}
+              onChange={(event) =>
+                setSearchPokemon(event.target.value.toLowerCase())
+              }
+            />
+            <IconButton type="submit" className={classes.button}>
+              <SearchIcon />
+            </IconButton>
+          </form>
+        </Box>
+        <Box textAlign="end" mr={10}>
+          <Switch
+            value={darkTheme}
+            onChange={() => setDarkTheme(!darkTheme)}
+            color="primary"
+          />
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mr={5}
+          mb={3}
+        >
+          {previousUrl && (
+            <Button
+              variant="contained"
+              onClick={previous}
+              color="primary"
+              className={classes.button}
+              startIcon={
+                <Icon>
+                  <ChevronLeftSharpIcon />
+                </Icon>
+              }
+            >
+              Voltar
+            </Button>
+          )}
+          {nextUrl && (
+            <Button
+              variant="contained"
+              onClick={next}
+              color="primary"
+              className={classes.button}
+              endIcon={
+                <Icon>
+                  <ChevronRightSharpIcon />
+                </Icon>
+              }
+            >
+              Próximo
+            </Button>
+          )}
+        </Box>
+        {wantedPokemon ? (
+          <React.Fragment>
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <Card
+                name={wantedPokemon.name}
+                url={wantedPokemon.species.url}
+                key={wantedPokemon.name}
+              />
+            </Box>
+          </React.Fragment>
+        ) : pokemons ? (
+          <React.Fragment>
+            <Grid container spacing={3} className={classes.container}>
+              {pokemons.map((item) => (
+                <Card name={item.name} url={item.url} key={item.name} />
+              ))}
+            </Grid>
+          </React.Fragment>
+        ) : (
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <CircularProgress />
+          </Box>
+        )}
+      </section>
     </React.Fragment>
   );
 }
